@@ -1,0 +1,10 @@
+name: "Blog Social Updater"
+description: ""
+author: "Dmytro Kyshchenko"
+inputs:
+  feed:
+    description: ""
+    required: true
+runs:
+  using: "node20"
+  main: "dist/index.js"
