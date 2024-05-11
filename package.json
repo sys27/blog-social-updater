@@ -21,6 +21,7 @@
     "@actions/core": "^1.10.1",
     "@actions/github": "^6.0.0",
     "fast-xml-parser": "^4.3.6",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "simple-git": "^3.24.0"
   }
 }

@@ -1,13 +1,16 @@
 export interface RootObject {
     rss: Rss;
 }
-interface Rss {
-    channel: Channel;
+
+export interface Rss {
+    channel: RssChannel;
 }
-interface Channel {
-    item: Item[];
+
+export interface RssChannel {
+    item: RssItem[];
 }
-interface Item {
+
+export interface RssItem {
     title: string;
     link: string;
     description: string;

@@ -2,6 +2,16 @@ name: "Blog Social Updater"
 description: ""
 author: "Dmytro Kyshchenko"
 inputs:
+  repositoryPath:
+    description: ""
+    required: true
+  contentPath:
+    description: ""
+    required: true
+  extensions:
+    description: ""
+    required: false
+    default: "md"
   feed:
     description: ""
     required: true
