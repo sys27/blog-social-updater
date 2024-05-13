@@ -1,33 +1,46 @@
 import * as core from '@actions/core';
 import { XMLParser } from 'fast-xml-parser';
 import _ from 'lodash';
+import path from 'path';
 import { DiffNameStatus, simpleGit } from 'simple-git';
 import { BloggerOptions } from './BloggerOptions.js';
 import { RootObject, RssItem } from './interfaces.js';
+import { TwitterApi } from 'twitter-api-v2';
 
 let options = getOptions();
 let changedFiles = await getChangedFiles(options);
 if (changedFiles.length === 0) {
-    core.info('No new blog posts found');
+    core.warning('No new blog posts found');
     process.exit(0);
 }
 
-let feedItems = await getFeedItems(options);
+let twitterClient = new TwitterApi(options.twitterToken);
 
-core.info("TODO:");
+let feedItems = await getFeedItems(options);
+for (let file of changedFiles) {
+    let name = path.basename(file, path.extname(file));
+    let item = _.find(feedItems, item => item.link.endsWith(name));
+    if (item) {
+        core.info(`Found blog post: ${item.title}`);
+
+        let tweet = `New blog post: ${item.title} ${item.link}`;
+        await twitterClient.v2.tweet(tweet);
+    }
+}
 
 function getOptions(): BloggerOptions {
     let gitPath = core.getInput('path');
     let contentPath = core.getInput('contentPath');
     let extensions = core.getInput('extensions').split(',');
     let feed = core.getInput('feed');
+    let twitterToken = core.getInput('twitterToken');
 
-    return new BloggerOptions(gitPath, contentPath, extensions, feed);
+    return new BloggerOptions(gitPath, contentPath, extensions, feed, twitterToken);
 }
 
 async function getChangedFiles(options: BloggerOptions): Promise<string[]> {
     let git = simpleGit(options.repositoryPath);
-    let diff = await git.diffSummary();
+    let diff = await git.diffSummary(['--name-status', 'HEAD^', 'HEAD']);
 
     return diff.files
         .filter(file =>

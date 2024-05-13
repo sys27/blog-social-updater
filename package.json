@@ -22,6 +22,7 @@
     "@actions/github": "^6.0.0",
     "fast-xml-parser": "^4.3.6",
     "lodash": "^4.17.21",
-    "simple-git": "^3.24.0"
+    "simple-git": "^3.24.0",
+    "twitter-api-v2": "^1.16.4"
   }
 }

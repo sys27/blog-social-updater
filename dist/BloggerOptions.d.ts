@@ -3,9 +3,11 @@ export declare class BloggerOptions {
     private _contentPath;
     private _extensions;
     private _feed;
-    constructor(_repositoryPath: string, _contentPath: string, _extensions: string[], _feed: string);
+    private _twitterToken;
+    constructor(_repositoryPath: string, _contentPath: string, _extensions: string[], _feed: string, _twitterToken: string);
     get repositoryPath(): string;
     get contentPath(): string;
     get extensions(): string[];
     get feed(): string;
+    get twitterToken(): string;
 }

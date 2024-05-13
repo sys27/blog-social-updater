@@ -3,7 +3,8 @@ export class BloggerOptions {
         private _repositoryPath: string,
         private _contentPath: string,
         private _extensions: string[],
-        private _feed: string
+        private _feed: string,
+        private _twitterToken: string
     ) { }
 
     public get repositoryPath() {
@@ -20,5 +21,9 @@ export class BloggerOptions {
 
     public get feed() {
         return this._feed;
+    }
+
+    public get twitterToken() {
+        return this._twitterToken;
     }
 }
